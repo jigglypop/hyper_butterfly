@@ -1,0 +1,32 @@
+# Reality Stone - Optimized Build Requirements
+# ==========================================
+# Essential build tools only for maximum speed
+
+# ===== Core Build Tools =====
+setuptools>=65.0,<71.0       # Latest stable setuptools
+wheel>=0.40.0                # Fast wheel building
+ninja>=1.11.0                # Ultra-fast build system
+pybind11>=2.10.0             # C++ Python bindings
+scikit-build-core[pyproject]>=0.7.0  # Modern CMake-based builds
+
+# ===== PyTorch Dependencies =====
+torch>=2.0.0,<2.5.0         # PyTorch (auto-detect CUDA)
+numpy>=1.21.0,<1.27.0       # NumPy (pre-compiled)
+
+# ===== Essential Build Dependencies =====
+cmake>=3.18.0                # Build system
+packaging>=21.0              # Package utilities
+filelock>=3.0.0             # Cache safety
+tomli>=2.0.0; python_version<"3.11"  # TOML parsing for older Python
+
+# ===== Optional Performance Boosters =====
+# Uncomment if available and needed:
+# ccache>=4.8.0              # Compiler cache (Linux/macOS)
+# intel-openmp>=2023.0.0     # Intel OpenMP (if using Intel compiler)
+
+# ===== Installation Notes =====
+# Fast install command:
+# pip install -r requirements-build.txt --prefer-binary --no-deps
+#
+# Ultra-fast parallel install:
+# pip install -r requirements-build.txt --prefer-binary --cache-dir ~/.cache/pip 

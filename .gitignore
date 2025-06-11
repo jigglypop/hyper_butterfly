@@ -1,0 +1,43 @@
+# ===== Rust =====
+target/
+
+# ===== Python tooling =====
+.tox/
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ===== Build artifacts (C/C++) =====
+*.o
+*.obj
+*.a
+*.lib
+*.exe
+compile_commands.json
+cmake-build-*/
+
+# ===== Logs / temp =====
+*.log
+*.tmp
+*.bak
+
+# ===== Jupyter =====
+*.ipynb_checkpoints/
+# ===== IDE/editor misc =====
+*.code-workspace
+*.swp
+*.swo
+# ===== Large data (adjust to your policy) =====
+data/
+data/*
+MNIST/
+MNIST/*
+venv/*
+venv/
+build/
+build/*
+.vscode/
+.vscode/*
+.vscode/

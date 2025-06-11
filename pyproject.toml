@@ -1,0 +1,73 @@
+[build-system]
+requires = [
+    "scikit-build-core>=0.7.0",
+    "pybind11",
+    "torch",
+    "numpy>=1.21.0,<2.0.0",
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "reality_stone"
+version = "0.2.0"
+description = "High-performance hyperbolic neural networks library"
+authors = [{name = "jigglypop", email = "donghwanyeom@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10", 
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "numpy>=1.21.0,<2.0.0",  # NumPy 2.x 호환성 문제 방지
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://github.com/jigglypop/reality_stone"
+Repository = "https://github.com/jigglypop/reality_stone.git"
+
+[tool.scikit-build]
+build-dir = "build/{wheel_tag}"
+
+# 병렬 빌드 최적화
+cmake.args = [
+    "-DCMAKE_BUILD_PARALLEL_LEVEL=8",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+]
+
+[tool.scikit-build.cmake.define]
+CMAKE_CXX_STANDARD = "17"
+CMAKE_POSITION_INDEPENDENT_CODE = "ON"
+CMAKE_CUDA_ARCHITECTURES = "75;86;89"
+
+# 개발 도구 설정
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
