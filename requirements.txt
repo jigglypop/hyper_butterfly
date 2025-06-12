@@ -1,14 +1,14 @@
 # ===== Core Dependencies =====
 # PyTorch with CUDA support
-torch==2.5.1+cu121
-torchvision==0.20.1+cu121
-torchaudio==2.5.1+cu121
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
 
 # Find links for PyTorch CUDA packages
---find-links https://download.pytorch.org/whl/cu121/torch_stable.html
+--find-links https://download.pytorch.org/whl/torch_stable.html
 
 # Core numerical computing
-numpy>=1.21.0
+numpy<2.0.0,>=1.21.0
 
 # Essential dependencies
 sympy==1.13.1
@@ -18,4 +18,33 @@ jinja2>=3.0.0
 networkx
 
 # For basic functionality
-setuptools>=60.0 
+setuptools>=60.0
+
+# Additional dependencies
+scipy
+pandas
+seaborn
+matplotlib
+tqdm
+scikit-learn
+h5py
+Pillow
+requests
+jupyter
+notebook
+ipywidgets
+ipympl
+tensorboard
+wandb
+optuna
+mlflow
+hydra-core
+pytorch-lightning
+
+# RL Libraries
+# Note: gym[box2d] is problematic on Windows as it requires SWIG.
+# Using gymnasium without box2d for now.
+gymnasium
+ale-py
+pygame>=2.5.2
+stable-baselines3 

@@ -8,16 +8,17 @@ wheel
 ninja
 
 # Testing frameworks
-pytest>=7.0.0
+pytest
 pytest-cov
-pytest-xdist
+hypothesis
 pytest-benchmark
+pytest-xdist
 
 # Code quality tools
-black>=22.0.0
-isort>=5.10.0
-flake8>=4.0.0
-mypy>=0.910
+flake8
+black
+isort
+mypy
 
 # Documentation
 sphinx>=4.0.0
@@ -56,5 +57,15 @@ autopep8
 pylint
 
 # Type checking
+types-requests
 types-setuptools
-types-requests 
+types-PyYAML
+types-tqdm
+types-Pillow
+types-psutil
+types-Jinja2
+types-MarkupSafe
+
+# Added from the code block
+torch
+torchvision 

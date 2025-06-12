@@ -7,27 +7,41 @@ set(CMAKE_CUDA_FLAGS "-Wno-deprecated-gpu-targets")
 
 project(reality_stone LANGUAGES CXX)
 
+# CUDA 옵션
+option(USE_CUDA "Enable CUDA support" ON)
+
 # CUDA 지원 확인 및 활성화 (개선된 방법)
-include(CheckLanguage)
-
-# 먼저 CUDA 환경 변수 확인
-if(DEFINED ENV{CUDA_PATH})
-    set(CMAKE_CUDA_COMPILER "$ENV{CUDA_PATH}/bin/nvcc.exe")
-    message(STATUS "Using CUDA from environment: $ENV{CUDA_PATH}")
-elseif(DEFINED ENV{CUDA_HOME})
-    set(CMAKE_CUDA_COMPILER "$ENV{CUDA_HOME}/bin/nvcc.exe")
-    message(STATUS "Using CUDA from CUDA_HOME: $ENV{CUDA_HOME}")
-endif()
-
-check_language(CUDA)
-if(CMAKE_CUDA_COMPILER)
-    enable_language(CUDA)
-    set(CUDA_ENABLED TRUE)
-    message(STATUS "CUDA found: ${CMAKE_CUDA_COMPILER}")
-    message(STATUS "CUDA architectures: ${CMAKE_CUDA_ARCHITECTURES}")
+if(USE_CUDA)
+    include(CheckLanguage)
+    
+    # 먼저 CUDA 환경 변수 확인
+    if(DEFINED ENV{CUDA_PATH})
+        set(CMAKE_CUDA_COMPILER "$ENV{CUDA_PATH}/bin/nvcc.exe")
+        message(STATUS "Using CUDA from environment: $ENV{CUDA_PATH}")
+    elseif(DEFINED ENV{CUDA_HOME})
+        set(CMAKE_CUDA_COMPILER "$ENV{CUDA_HOME}/bin/nvcc.exe")
+        message(STATUS "Using CUDA from CUDA_HOME: $ENV{CUDA_HOME}")
+    endif()
+    
+    check_language(CUDA)
+    if(CMAKE_CUDA_COMPILER)
+        message(STATUS "Attempting to enable CUDA...")
+        enable_language(CUDA OPTIONAL)
+        if(CMAKE_CUDA_COMPILER_ID)
+            set(CUDA_ENABLED TRUE)
+            message(STATUS "CUDA found: ${CMAKE_CUDA_COMPILER}")
+            message(STATUS "CUDA architectures: ${CMAKE_CUDA_ARCHITECTURES}")
+        else()
+            set(CUDA_ENABLED FALSE)
+            message(WARNING "CUDA compiler detected but failed to initialize - building CPU-only version")
+        endif()
+    else()
+        set(CUDA_ENABLED FALSE)
+        message(STATUS "CUDA not found, building CPU-only version")
+    endif()
 else()
     set(CUDA_ENABLED FALSE)
-    message(STATUS "CUDA not found, building CPU-only version")
+    message(STATUS "CUDA disabled by user - building CPU-only version")
 endif()
 
 # Python 찾기
